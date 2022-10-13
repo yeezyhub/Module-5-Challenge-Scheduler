@@ -23,27 +23,52 @@ let arraySlots = [slot9, slot10, slot11, slot12, slot13, slot14, slot15, slot16,
 //array to use in the for loop and if statements
 const timeList = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
+let taskID;
+let localData;
+let keys =  Object.keys(localStorage);
+let values = Object.values(localStorage);
+
+
 //checks every slot whether they are present, past or future
-for (let i = 0; i < timeList.length; i++) {
-        
-        if (timeList[i] === currentHour) {
-            arraySlots[i].addClass("present");
-          } else if (timeList[i] < currentHour) {
-            arraySlots[i].addClass("past");
-          } else if (timeList[i] > currentHour) {
-            arraySlots[i].addClass("future");
-          }
-    
-}
+// for (let i = 0; i < timeList.length; i++) {
+//   if (timeList[i] === currentHour) {
+//    arraySlots[i].addClass("present");
+//   } else if (timeList[i] < currentHour) {
+//    arraySlots[i].addClass("past");
+//   } else if (timeList[i] > currentHour) {
+//     arraySlots[i].addClass("future");
+//   } 
+// }
+
+//checks every slot whether they are present, past or future
+$.each(timeList, function(i){
+  if (timeList[i] === currentHour) {
+    arraySlots[i].addClass("present");
+   } else if (timeList[i] < currentHour) {
+    arraySlots[i].addClass("past");
+   } else if (timeList[i] > currentHour) {
+     arraySlots[i].addClass("future");
+   }
+
+});
+
 
 $(".saveBtn").on( "click", function(event) {
+  console.log(event);
     let targetedEvent = event.target;
-    taskInput = targetedEvent.previousElementSibling.value;
-    localStorage.setItem('task', taskInput); 
-    
- });
+    let taskInput = targetedEvent.previousElementSibling.value;
+    taskID = targetedEvent.previousElementSibling.id;
 
+    localData = localStorage.setItem(taskID, taskInput); 
+});
 
+//prints localstorage to time blocks
+for (let i = 0; i < localStorage.length; i++) {
+  let keysEl = $('#' + keys[i]);
+  keysEl.val(values[i]);
+}
+
+ 
 
 
 
