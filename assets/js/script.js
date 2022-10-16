@@ -2,9 +2,9 @@
 const currentDay = moment().format('dddd, MMMM Do');
 $('#currentDay').text(currentDay);
 
- const currentHour = 15;
-//const currentHour = parseInt(moment().format("H"));
-$('#currentHour').text(currentHour);
+// const currentHour = 13;
+const currentHour = parseInt(moment().format("H"));
+// $('#currentHour').text(currentHour);
 
 //pulling ID elements from HTML
 let slot9 = $('#9');
@@ -27,6 +27,8 @@ let taskID;
 let localData;
 let keys =  Object.keys(localStorage);
 let values = Object.values(localStorage);
+
+let saveText = $('.saveText');
 
 
 //checks every slot whether they are present, past or future
@@ -53,23 +55,22 @@ $.each(timeList, function(i){
 });
 
 
-$(".saveBtn").on( "click", function(event) {
-  console.log(event);
-    let targetedEvent = event.target;
-    let taskInput = targetedEvent.previousElementSibling.value;
-    taskID = targetedEvent.previousElementSibling.id;
+$(document).on( "click",".saveBtn", function(event) {
+  console.log(this);
+   // let targetedEvent = event.target;
+    let targetedEvent = this;
+    let taskInput = this.previousElementSibling.value;
+    taskID = this.previousElementSibling.id;
+    localData = localStorage.setItem(taskID, taskInput);
+    saveText.removeClass('hide');
 
-    localData = localStorage.setItem(taskID, taskInput); 
 });
 
 //prints localstorage to time blocks
 for (let i = 0; i < localStorage.length; i++) {
   let keysEl = $('#' + keys[i]);
-  keysEl.val(values[i]);
+  let task = keysEl.val(values[i]);
 }
-
- 
-
 
 
 
