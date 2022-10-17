@@ -2,8 +2,8 @@
 const currentDay = moment().format('dddd, MMMM Do');
 $('#currentDay').text(currentDay);
 
-// const currentHour = 13;
-const currentHour = parseInt(moment().format("H"));
+const currentHour = 13;
+// const currentHour = parseInt(moment().format("H"));
 // $('#currentHour').text(currentHour);
 
 //pulling ID elements from HTML
